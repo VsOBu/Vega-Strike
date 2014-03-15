@@ -1,4 +1,4 @@
-intro_string="Have you heard of the Interplanetary Socialist Organization? We are a revolutionary organization trying to rid the Star Confederacy of its tired oligarchy. We are here to defend the rights of the poor workers! We are here to cause the downfall of the bourgeoise and enable the rise of the proletariat!"
+intro_string=_("Have you heard of the Interplanetary Socialist Organization? We are a revolutionary organization trying to rid the Star Confederacy of its tired oligarchy. We are here to defend the rights of the poor workers! We are here to cause the downfall of the bourgeoise and enable the rise of the proletariat!")
 
 import Base
 import fixers
@@ -8,8 +8,8 @@ import launch
 def AssignMission ():
     fixers.DestroyActiveButtons ()
     fixers.CreateChoiceButtons(Base.GetCurRoom(),[
-            fixers.Choice("bases/fixers/yes.spr","bases/fixers/iso_mission.py","Accept This Agreement"),
-            fixers.Choice("bases/fixers/no.spr","bases/fixers/iso_decline.py","Decline This Agreement")])
+            fixers.Choice("bases/fixers/yes.spr","bases/fixers/iso_mission.py",_("Accept This Agreement")),
+            fixers.Choice("bases/fixers/no.spr","bases/fixers/iso_decline.py",_("Decline This Agreement"))])
 
 playa = VS.getPlayer();
 playernum = playa.isPlayerStarship()
@@ -18,16 +18,16 @@ kills=0
 if (len!=0):
     kills=Director.getSaveData(playernum,"kills",len-1)
 if (kills<25):
-    Base.Message("Hello Pilot. " + intro_string + " We are actively seeking new members in our organization.  However to fly defense runs, you need some more experience. Come back when your record is somewhat more interesting and then together we can overthrow the confederacy!");
+    Base.Message(_("Hello Pilot. ") + intro_string + _(" We are actively seeking new members in our organization.  However to fly defense runs, you need some more experience. Come back when your record is somewhat more interesting and then together we can overthrow the confederacy!"));
 elif (VS.numActiveMissions()>1):
-    Base.Message ("It is a pleasure to speak to you; however, if you wish to work with me you must first finish up your other contractual obligations.")
+    Base.Message (_("It is a pleasure to speak to you; however, if you wish to work with me you must first finish up your other contractual obligations."))
 else:
     if (fixers.checkSaveValue (playernum,"iso_mission1",0)):
-        Base.Message("Hello Mercenary. " + intro_string + " We are actively seeking mercenaries to help us defend our supplies and our party members. There is, in this system, a vessel carrying several key party members and some valuable sensor data with them.  Comrade, we offer 18000 credits if you will defend these starships! Do you accept our offer?")
+        Base.Message(_("Hello Mercenary. ") + intro_string + _(" We are actively seeking mercenaries to help us defend our supplies and our party members. There is, in this system, a vessel carrying several key party members and some valuable sensor data with them.  Comrade, we offer 18000 credits if you will defend these starships! Do you accept our offer?"))
 #And then if you fail.......
         AssignMission()
     elif (fixers.checkSaveValue (playernum,"iso_mission1",-1)):
-        Base.Message ("You conspirator! I should have realized you were a kepitalizt pig when I first smelled your foul stench! You probably got paid to destroy our vessel. If I shared in your lack of honor I would kill you where you stand.  But instead I shall ask my operatives to rid you of your ship. The next time any of us see your vessel, it will be fired upon. Leave my presence - you nauseate me.")
+        Base.Message (_("You conspirator! I should have realized you were a kepitalizt pig when I first smelled your foul stench! You probably got paid to destroy our vessel. If I shared in your lack of honor I would kill you where you stand.  But instead I shall ask my operatives to rid you of your ship. The next time any of us see your vessel, it will be fired upon. Leave my presence - you nauseate me."))
         fixers.setSaveValue (playernum,"decided_iso_evil",1)
         type = faction_ships.getRandomFighter ("ISO")
         fgname="Lenin'sRevenge"
@@ -37,7 +37,7 @@ else:
         launch.launch_wave_around_unit (fgname,"ISO",type,"default",1,80,300,playa).SetTarget(playa)
         launch.launch_wave_around_unit (fgname,"ISO",type,"default",1,80,300,playa).SetTarget(playa)
     elif (fixers.checkSaveValue (playernum,"iso_mission2",-1) or fixers.checkSaveValue (playernum,"iso_mission3",-1) or fixers.checkSaveValue (playernum,"iso_mission4",-1)):
-        Base.Message ("You have failed the ISO.  I should have known not to entrust a self serving mercenary with the key plans of our organization. Go now... make money for yourself--I know you do not care for the future of those who actually earn their livings.")
+        Base.Message (_("You have failed the ISO.  I should have known not to entrust a self serving mercenary with the key plans of our organization. Go now... make money for yourself--I know you do not care for the future of those who actually earn their livings."))
     else:
         if (fixers.checkSaveValue (playernum,"iso_mission1",1) and fixers.checkSaveValue(playernum,"iso_mission2",0)):
             if (fixers.checkSaveValue (playernum,"iso_mission1_paid",0)):
