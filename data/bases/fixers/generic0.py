@@ -5,7 +5,7 @@ import VS
 
 fixers.DestroyActiveButtons ()
 if VS.numActiveMissions()>1:
-    Base.Message('You are already doing a mission. Finish that instead.')
+    Base.Message(_('You are already doing a mission. Finish that instead.'))
 else:
     fixers.CreateChoiceButtons(Base.GetCurRoom(),[
             fixers.Choice("bases/fixers/yes.spr","bases/fixers/generic0b.py",_("Accept This Agreement")),
